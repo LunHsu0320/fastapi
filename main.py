@@ -53,7 +53,7 @@ def select_all_tasks(conn:Connection,count:int):
 
 @app.get("/")
 def read_root():
-    return {"Hello": "Lun"}
+    return {"Hello": "robert"}
 
 @app.get("/items/{item_id}")
 async def read_item1(item_id:int):
@@ -73,13 +73,13 @@ async def read_item(time:str = datetime.now().strftime("%Y%m%d %H:%M:%S"),light:
         "光線":light,
         "溫度":temperature
     }
-    
+
 #query parameter
-@app.get("/iot_json/{item_count}")    
+@app.get("/iot_json/{item_count}")
 async def read_item2(item_count:int):
     conn = create_connection('data.db')
     if conn is not None:
         create_table(conn)
-        rows = select_all_tasks(conn, 5)  
-        conn.close()    
+        rows = select_all_tasks(conn, item_count)            
+        conn.close()
         return rows
